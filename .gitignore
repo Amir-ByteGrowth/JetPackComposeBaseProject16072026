@@ -1,0 +1,12 @@
+*.iml
+.gradle
+local.properties
+.idea
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Firebase config (do not commit real credentials)
+app/google-services.json

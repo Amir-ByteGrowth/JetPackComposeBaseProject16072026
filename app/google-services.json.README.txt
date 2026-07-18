@@ -1,0 +1,17 @@
+This project expects a real `google-services.json` file at `app/google-services.json`.
+
+## How to get it
+1. Go to the Firebase console: https://console.firebase.google.com
+2. Create a project (or select an existing one).
+3. Add an Android app with package name: com.nyvoratech.composebase
+4. Download the generated `google-services.json`.
+5. Place it at `app/google-services.json` (same folder as `app/build.gradle.kts`).
+6. Enable the Firebase products you plan to use in the console:
+   - Authentication (Email/Password, and Google if you want social sign-in)
+   - Firestore Database
+   - Analytics
+   - Crashlytics
+
+The file is git-ignored by default (see `.gitignore`) since it can contain
+project-specific identifiers you may not want in a public repo. For CI, inject
+it as a secret file during the build instead of committing it.
