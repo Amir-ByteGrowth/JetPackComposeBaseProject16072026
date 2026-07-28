@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.nyvoratech.composebase.feature.login.LoginScreen
+import com.nyvoratech.composebase.feature.postusers.PostUserDetailScreen
+import com.nyvoratech.composebase.feature.postusers.PostUsersScreen
 import com.nyvoratech.composebase.feature.session.SharedSessionViewModel
 import com.nyvoratech.composebase.feature.users.UsersScreen
 
@@ -24,7 +26,7 @@ fun ComposeBaseNavGraph() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.SessionGraph) {
-        navigation<Screen.SessionGraph>(startDestination = Screen.Login) {
+        navigation<Screen.SessionGraph>(startDestination = Screen.PostUsers) {
 
             composable<Screen.Login> { backStackEntry ->
                 val sharedSessionViewModel = backStackEntry.sharedSessionViewModel(navController)
@@ -44,7 +46,22 @@ fun ComposeBaseNavGraph() {
 
             composable<Screen.Users> { backStackEntry ->
                 val sharedSessionViewModel = backStackEntry.sharedSessionViewModel(navController)
-                UsersScreen(sharedSessionViewModel = sharedSessionViewModel)
+                UsersScreen(
+                    sharedSessionViewModel = sharedSessionViewModel
+                )
+            }
+
+            composable<Screen.PostUsers> {
+                PostUsersScreen(
+                    onNavigateToDetail = { id -> navController.navigate(Screen.PostUserDetail(id)) },
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
+
+            composable<Screen.PostUserDetail> {
+                PostUserDetailScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
         }
     }

@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 //import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://api.example.com/" // TODO: replace with your real base URL
+private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
 /**
  * Provides all networking singletons: JSON config, logging, OkHttp client
@@ -61,4 +61,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun providePostUserApiService(
+        retrofit: Retrofit
+    ): PostUserApiService = retrofit.create(PostUserApiService::class.java)
 }

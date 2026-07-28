@@ -29,5 +29,6 @@ class AnalyticsLogger @Inject constructor(
         const val EVENT_LOGIN_SUCCESS = "login_success"
         const val EVENT_LOGIN_FAILURE = "login_failure"
         const val EVENT_USERS_LOADED = "users_loaded"
+        const val EVENT_POST_USERS_LOADED = "post_users_loaded"
     }
 }

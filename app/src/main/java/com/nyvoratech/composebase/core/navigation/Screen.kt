@@ -13,6 +13,12 @@ sealed interface Screen {
     @Serializable
     data object Users : Screen
 
+    @Serializable
+    data object PostUsers : Screen
+
+    @Serializable
+    data class PostUserDetail(val id: Long) : Screen
+
     /** Shared parent route both Login and Users belong to, so they can share a ViewModel. */
     @Serializable
     data object SessionGraph : Screen
