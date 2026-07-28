@@ -41,7 +41,7 @@ fun ComposeBaseNavGraph() {
                     // session state below is intentionally shared.
                 )
                 // Keep the shared VM alive even though LoginScreen doesn't consume it directly.
-                sharedSessionViewModel
+//                sharedSessionViewModel
             }
 
             composable<Screen.Users> { backStackEntry ->
