@@ -2,7 +2,7 @@ package com.nyvoratech.composebase.ui.postusers.ui.postuserlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nyvoratech.composebase.core.common.AnalyticsLogger
+import com.nyvoratech.composebase.core.common.FirebaseAnalyticsLogger
 import com.nyvoratech.composebase.core.network.Resource
 import com.nyvoratech.composebase.core.network.toUserMessage
 import com.nyvoratech.composebase.ui.postusers.domain.usecases.GetPostUsersUseCase
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PostUsersViewModel @Inject constructor(
     private val getPostUsersUseCase: GetPostUsersUseCase,
-    private val analyticsLogger: AnalyticsLogger
+    private val analyticsLogger: FirebaseAnalyticsLogger
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PostUsersUiState())
@@ -32,7 +32,7 @@ class PostUsersViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             when (val result = getPostUsersUseCase()) {
                 is Resource.Success -> {
-                    analyticsLogger.logEvent(AnalyticsLogger.EVENT_POST_USERS_LOADED)
+                    analyticsLogger.logEvent(FirebaseAnalyticsLogger.EVENT_POST_USERS_LOADED)
                     _uiState.update {
                         it.copy(
                             isLoading = false,

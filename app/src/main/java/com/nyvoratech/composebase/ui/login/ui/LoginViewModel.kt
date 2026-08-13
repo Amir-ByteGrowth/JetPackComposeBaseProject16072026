@@ -2,7 +2,7 @@ package com.nyvoratech.composebase.ui.login.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nyvoratech.composebase.core.common.AnalyticsLogger
+import com.nyvoratech.composebase.core.common.FirebaseAnalyticsLogger
 import com.nyvoratech.composebase.core.network.Resource
 import com.nyvoratech.composebase.core.network.toUserMessage
 import com.nyvoratech.composebase.ui.login.domain.usecases.LoginUseCase
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val analyticsLogger: AnalyticsLogger
+    private val analyticsLogger: FirebaseAnalyticsLogger
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -49,13 +49,13 @@ class LoginViewModel @Inject constructor(
             }
             when (val result = loginUseCase(_uiState.value.email, _uiState.value.password)) {
                 is Resource.Success -> {
-                    analyticsLogger.logEvent(AnalyticsLogger.EVENT_LOGIN_SUCCESS)
+                    analyticsLogger.logEvent(FirebaseAnalyticsLogger.EVENT_LOGIN_SUCCESS)
                     _uiState.update { it.copy(isLoading = false) }
                     _events.send(LoginEvent.NavigateToUsers)
                 }
 
                 is Resource.Error -> {
-                    analyticsLogger.logEvent(AnalyticsLogger.EVENT_LOGIN_FAILURE)
+                    analyticsLogger.logEvent(FirebaseAnalyticsLogger.EVENT_LOGIN_FAILURE)
                     _uiState.update {
                         it.copy(
                             isLoading = false,

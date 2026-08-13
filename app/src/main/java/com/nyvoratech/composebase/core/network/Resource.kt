@@ -52,6 +52,8 @@ private fun firebaseErrorMessage(
 
         "ERROR_INVALID_EMAIL" ->
             "Please enter a valid email address."
+        "ERROR_INVALID_CREDENTIAL" ->
+            "Invalid credentials"
 
         "ERROR_USER_NOT_FOUND" ->
             "No account exists with this email."

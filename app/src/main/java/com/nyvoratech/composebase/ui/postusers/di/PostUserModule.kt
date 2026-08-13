@@ -1,5 +1,6 @@
 package com.nyvoratech.composebase.ui.postusers.di
 
+import com.nyvoratech.composebase.core.di.MainRetrofit
 import com.nyvoratech.composebase.ui.postusers.data.apiservice.PostUserApiService
 import dagger.Module
 import dagger.Provides
@@ -14,6 +15,6 @@ object PostUserModule {
     @Provides
     @Singleton
     fun providePostUserApiService(
-        retrofit: Retrofit
+        @MainRetrofit retrofit: Retrofit
     ): PostUserApiService = retrofit.create(PostUserApiService::class.java)
 }

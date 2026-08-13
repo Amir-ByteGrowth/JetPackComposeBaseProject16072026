@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * analytics an implementation detail of the data/core layer.
  */
 @Singleton
-class AnalyticsLogger @Inject constructor(
+class FirebaseAnalyticsLogger @Inject constructor(
     private val firebaseAnalytics: FirebaseAnalytics
 ) {
     fun logEvent(name: String, params: Map<String, String> = emptyMap()) {

@@ -124,4 +124,9 @@ dependencies {
 
     //Timberfb
     implementation (libs.timber)
+
+    //DataStore
+    implementation(libs.androidx.dataStore.core)
+    implementation(libs.androidx.dataStore.preferences)
+
 }

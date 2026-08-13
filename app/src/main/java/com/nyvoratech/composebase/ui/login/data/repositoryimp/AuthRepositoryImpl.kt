@@ -1,8 +1,9 @@
 package com.nyvoratech.composebase.ui.login.data.repositoryimp
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.nyvoratech.composebase.core.common.FirebaseCrashReporter
+import com.nyvoratech.composebase.core.di.auth.TokenManager
 import com.nyvoratech.composebase.core.network.AppError
 import com.nyvoratech.composebase.core.network.Resource
 import com.nyvoratech.composebase.ui.login.domain.repository.AuthRepository
@@ -10,12 +11,15 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val crashReporter: FirebaseCrashReporter,
+    private val tokenManager: TokenManager
 ) : AuthRepository {
 
     override fun observeAuthState(): Flow<String?> = callbackFlow {
@@ -32,6 +36,16 @@ class AuthRepositoryImpl @Inject constructor(
             firebaseAuth
                 .signInWithEmailAndPassword(email, password)
                 .await()
+
+            val idToken = firebaseAuth.currentUser
+                ?.getIdToken(false)
+                ?.await()
+                ?.token
+                ?: throw IllegalStateException(
+                    "Firebase ID token is null"
+                )
+//            Log.d("FirebaseToken", idToken)
+            tokenManager.updateAccessToken(idToken)
         }
     }
 
@@ -41,6 +55,7 @@ class AuthRepositoryImpl @Inject constructor(
             firebaseAuth
                 .createUserWithEmailAndPassword(email, password)
                 .await()
+
         }
     }
 
@@ -65,6 +80,9 @@ class AuthRepositoryImpl @Inject constructor(
             action()
             Resource.Success(Unit)
         } catch (e: FirebaseAuthException) {
+
+            crashReporter.recordException(e, "FirebaseLoginError")
+
             Resource.Error(
                 AppError.Firebase(
                     code = e.errorCode,
@@ -72,9 +90,11 @@ class AuthRepositoryImpl @Inject constructor(
                 )
             )
         } catch (e: Exception) {
-            Log.d("FirebaseError", e.message.toString())
+
+            Timber.tag("FirebaseError").d(e.message.toString())
+            crashReporter.recordException(e, "Unexpected_Firebase_Error")
             Resource.Error(
-                AppError.Firebase("CONFIGURATION_NOT_FOUND", e.message)
+                AppError.Firebase("Unexpected_Firebase_Error", e.message)
             )
         }
     }

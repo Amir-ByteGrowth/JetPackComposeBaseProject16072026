@@ -2,7 +2,8 @@ package com.nyvoratech.composebase.core.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.nyvoratech.composebase.BuildConfig
-import com.nyvoratech.composebase.ui.users.data.apiservice.ApiService
+import com.nyvoratech.composebase.core.di.auth.AuthApiService
+import com.nyvoratech.composebase.core.di.auth.TokenAuthenticator
 import com.nyvoratech.composebase.core.network.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -48,19 +49,66 @@ object NetworkModule {
 //            redactHeader("Cookie") for sensitive session
         }
 
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(authInterceptor)
-        .addNetworkInterceptor(loggingInterceptor) // keep logging last so headers/body are visible
-        .build()
+//    @Provides
+//    @Singleton
+//    fun provideOkHttpClient(
+//        loggingInterceptor: HttpLoggingInterceptor,
+//        authInterceptor: AuthInterceptor
+//    ): OkHttpClient = OkHttpClient.Builder()
+//        .addInterceptor(authInterceptor)
+//        .addNetworkInterceptor(loggingInterceptor) // keep logging last so headers/body are visible
+//        .build()
+
+    private fun createBaseClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient.Builder {
+
+        return OkHttpClient.Builder()
+//            .retryOnConnectionFailure(true)
+            .addNetworkInterceptor(loggingInterceptor)
+    }
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
+    @AuthOkHttp
+    fun provideAuthOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+
+        return createBaseClient(loggingInterceptor)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @MainOkHttp
+    fun provideMainOkHttpClient(
+        authInterceptor: AuthInterceptor,
+        tokenAuthenticator: TokenAuthenticator,
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+
+        return createBaseClient(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .authenticator(tokenAuthenticator)
+            .build()
+    }
+
+
+    //    @Provides
+//    @Singleton
+//    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
+//        val contentType = "application/json".toMediaType()
+//        return Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .client(okHttpClient)
+//            .addConverterFactory(json.asConverterFactory(contentType))
+//            .build()
+//    }
+    private fun createRetrofit(
+        json: Json,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -69,6 +117,42 @@ object NetworkModule {
             .build()
     }
 
+    // -------------------------------------------------------------------------
+    // Auth Retrofit
+    // -------------------------------------------------------------------------
+
+    @Provides
+    @Singleton
+    @AuthRetrofit
+    fun provideAuthRetrofit(
+        json: Json,
+        @AuthOkHttp okHttpClient: OkHttpClient
+    ): Retrofit =
+        createRetrofit(json, okHttpClient)
+
+    // -------------------------------------------------------------------------
+    // Main Retrofit
+    // -------------------------------------------------------------------------
+
+    @Provides
+    @Singleton
+    @MainRetrofit
+    fun provideMainRetrofit(
+        json: Json,
+        @MainOkHttp okHttpClient: OkHttpClient
+    ): Retrofit =
+        createRetrofit(json, okHttpClient)
+
+    // -------------------------------------------------------------------------
+    // Services
+    // -------------------------------------------------------------------------
+
+    @Provides
+    @Singleton
+    fun provideAuthApiService(
+        @AuthRetrofit retrofit: Retrofit
+    ): AuthApiService =
+        retrofit.create(AuthApiService::class.java)
 
 
 }

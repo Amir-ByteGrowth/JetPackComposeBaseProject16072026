@@ -1,5 +1,6 @@
 package com.nyvoratech.composebase.ui.users.di
 
+import com.nyvoratech.composebase.core.di.MainRetrofit
 import com.nyvoratech.composebase.ui.users.data.apiservice.ApiService
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,6 @@ import javax.inject.Singleton
 object UserModule {
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    fun provideApiService(@MainRetrofit retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
 }

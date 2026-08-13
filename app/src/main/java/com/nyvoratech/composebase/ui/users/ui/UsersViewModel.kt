@@ -2,7 +2,7 @@ package com.nyvoratech.composebase.ui.users.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nyvoratech.composebase.core.common.AnalyticsLogger
+import com.nyvoratech.composebase.core.common.FirebaseAnalyticsLogger
 import com.nyvoratech.composebase.core.network.Resource
 import com.nyvoratech.composebase.core.network.toUserMessage
 import com.nyvoratech.composebase.ui.users.domain.usecases.GetUsersUseCase
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class UsersViewModel @Inject constructor(
     getUsersUseCase: GetUsersUseCase,
     private val refreshUsersUseCase: RefreshUsersUseCase,
-    private val analyticsLogger: AnalyticsLogger
+    private val analyticsLogger: FirebaseAnalyticsLogger
 ) : ViewModel() {
 
     private val refreshState = MutableStateFlow(RefreshState())
@@ -49,7 +49,7 @@ class UsersViewModel @Inject constructor(
             refreshState.value = refreshState.value.copy(isRefreshing = true, errorMessage = null)
             when (val result = refreshUsersUseCase()) {
                 is Resource.Success -> {
-                    analyticsLogger.logEvent(AnalyticsLogger.EVENT_USERS_LOADED)
+                    analyticsLogger.logEvent(FirebaseAnalyticsLogger.EVENT_USERS_LOADED)
                     refreshState.value = refreshState.value.copy(isRefreshing = false)
                 }
 

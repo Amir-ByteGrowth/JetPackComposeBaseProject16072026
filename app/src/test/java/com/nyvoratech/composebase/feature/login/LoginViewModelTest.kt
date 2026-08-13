@@ -1,7 +1,7 @@
 package com.nyvoratech.composebase.feature.login
 
 import app.cash.turbine.test
-import com.nyvoratech.composebase.core.common.AnalyticsLogger
+import com.nyvoratech.composebase.core.common.FirebaseAnalyticsLogger
 import com.nyvoratech.composebase.core.common.Resource
 import com.nyvoratech.composebase.ui.login.domain.usecases.LoginUseCase
 import com.nyvoratech.composebase.fakes.FakeAuthRepository
@@ -32,7 +32,7 @@ class LoginViewModelTest {
         Dispatchers.setMain(dispatcher)
         fakeAuthRepository = FakeAuthRepository()
         val loginUseCase = LoginUseCase(fakeAuthRepository)
-        val analyticsLogger = mockk<AnalyticsLogger>(relaxed = true)
+        val analyticsLogger = mockk<FirebaseAnalyticsLogger>(relaxed = true)
         viewModel = LoginViewModel(loginUseCase, analyticsLogger)
     }
 
