@@ -1,13 +1,13 @@
 package com.nyvoratech.composebase.core.di
 
-import com.nyvoratech.composebase.core.network.FirebaseTokenProvider
+import com.nyvoratech.composebase.core.firebase.FirebaseTokenProvider
 import com.nyvoratech.composebase.core.network.TokenProvider
-import com.nyvoratech.composebase.data.repository.AuthRepositoryImpl
-import com.nyvoratech.composebase.data.repository.PostUserRepositoryImpl
-import com.nyvoratech.composebase.data.repository.UserRepositoryImpl
-import com.nyvoratech.composebase.domain.repository.AuthRepository
-import com.nyvoratech.composebase.domain.repository.PostUserRepository
-import com.nyvoratech.composebase.domain.repository.UserRepository
+import com.nyvoratech.composebase.ui.login.data.repositoryimp.AuthRepositoryImpl
+import com.nyvoratech.composebase.ui.postusers.data.repositoryimpl.PostUserRepositoryImpl
+import com.nyvoratech.composebase.ui.users.data.repositoryimp.UserRepositoryImpl
+import com.nyvoratech.composebase.ui.login.domain.repository.AuthRepository
+import com.nyvoratech.composebase.ui.postusers.domain.repository.PostUserRepository
+import com.nyvoratech.composebase.ui.users.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

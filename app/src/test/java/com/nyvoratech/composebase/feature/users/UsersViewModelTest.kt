@@ -1,12 +1,12 @@
 package com.nyvoratech.composebase.feature.users
 
 import app.cash.turbine.test
-import com.nyvoratech.composebase.core.common.AnalyticsLogger
 import com.nyvoratech.composebase.core.common.Resource
-import com.nyvoratech.composebase.domain.model.User
-import com.nyvoratech.composebase.domain.usecase.GetUsersUseCase
-import com.nyvoratech.composebase.domain.usecase.RefreshUsersUseCase
+import com.nyvoratech.composebase.ui.users.domain.model.User
+import com.nyvoratech.composebase.ui.users.domain.usecases.GetUsersUseCase
+import com.nyvoratech.composebase.ui.users.domain.usecases.RefreshUsersUseCase
 import com.nyvoratech.composebase.fakes.FakeUserRepository
+import com.nyvoratech.composebase.ui.users.ui.UsersViewModel
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

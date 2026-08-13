@@ -3,8 +3,10 @@ package com.nyvoratech.composebase.feature.login
 import app.cash.turbine.test
 import com.nyvoratech.composebase.core.common.AnalyticsLogger
 import com.nyvoratech.composebase.core.common.Resource
-import com.nyvoratech.composebase.domain.usecase.LoginUseCase
+import com.nyvoratech.composebase.ui.login.domain.usecases.LoginUseCase
 import com.nyvoratech.composebase.fakes.FakeAuthRepository
+import com.nyvoratech.composebase.ui.login.ui.LoginEvent
+import com.nyvoratech.composebase.ui.login.ui.LoginViewModel
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

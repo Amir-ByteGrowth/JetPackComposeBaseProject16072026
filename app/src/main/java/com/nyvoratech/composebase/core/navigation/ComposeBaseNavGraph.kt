@@ -8,11 +8,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.nyvoratech.composebase.feature.login.LoginScreen
-import com.nyvoratech.composebase.feature.postusers.PostUserDetailScreen
-import com.nyvoratech.composebase.feature.postusers.PostUsersScreen
-import com.nyvoratech.composebase.feature.session.SharedSessionViewModel
-import com.nyvoratech.composebase.feature.users.UsersScreen
+import com.nyvoratech.composebase.ui.login.ui.LoginScreen
+import com.nyvoratech.composebase.ui.postusers.ui.postuserdetail.PostUserDetailScreen
+import com.nyvoratech.composebase.ui.postusers.ui.postuserlist.PostUsersScreen
+import com.nyvoratech.composebase.ui.session.SharedSessionViewModel
+import com.nyvoratech.composebase.ui.users.ui.UsersScreen
 
 /**
  * Root navigation graph. Login and Users both live inside [Screen.SessionGraph],
@@ -26,7 +26,7 @@ fun ComposeBaseNavGraph() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.SessionGraph) {
-        navigation<Screen.SessionGraph>(startDestination = Screen.PostUsers) {
+        navigation<Screen.SessionGraph>(startDestination = Screen.Login) {
 
             composable<Screen.Login> { backStackEntry ->
                 val sharedSessionViewModel = backStackEntry.sharedSessionViewModel(navController)

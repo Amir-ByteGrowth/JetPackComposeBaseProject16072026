@@ -2,6 +2,8 @@ package com.nyvoratech.composebase.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.nyvoratech.composebase.ui.users.data.local.UserDao
+import com.nyvoratech.composebase.ui.users.data.local.UserEntity
 
 @Database(
     entities = [UserEntity::class],

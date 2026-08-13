@@ -1,7 +1,7 @@
 package com.nyvoratech.composebase.fakes
 
 import com.nyvoratech.composebase.core.common.Resource
-import com.nyvoratech.composebase.domain.repository.AuthRepository
+import com.nyvoratech.composebase.ui.login.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

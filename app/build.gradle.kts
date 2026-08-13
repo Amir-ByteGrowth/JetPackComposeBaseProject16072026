@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,6 +48,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true  // must be enabled for libraries
     }
 
     packaging {
@@ -87,6 +89,7 @@ dependencies {
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit.gson)
 
     // Local persistence
     implementation(libs.room.runtime)
@@ -118,4 +121,7 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Timberfb
+    implementation (libs.timber)
 }
