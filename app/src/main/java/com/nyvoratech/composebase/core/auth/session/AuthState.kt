@@ -1,4 +1,4 @@
-package com.nyvoratech.composebase.core.auth
+package com.nyvoratech.composebase.core.auth.session
 
 sealed interface AuthState {
     data object Unknown : AuthState

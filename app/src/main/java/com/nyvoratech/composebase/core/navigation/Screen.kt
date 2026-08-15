@@ -7,6 +7,10 @@ import kotlinx.serialization.Serializable
  * @Serializable route objects directly, no more string route parsing).
  */
 sealed interface Screen {
+
+    @Serializable
+    data object SessionLoading : Screen
+
     @Serializable
     data object Login : Screen
 
