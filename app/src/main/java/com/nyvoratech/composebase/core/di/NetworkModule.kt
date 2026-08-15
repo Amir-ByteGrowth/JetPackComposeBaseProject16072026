@@ -2,8 +2,8 @@ package com.nyvoratech.composebase.core.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.nyvoratech.composebase.BuildConfig
-import com.nyvoratech.composebase.core.di.auth.AuthApiService
-import com.nyvoratech.composebase.core.di.auth.TokenAuthenticator
+import com.nyvoratech.composebase.core.auth.AuthApiService
+import com.nyvoratech.composebase.core.auth.TokenAuthenticator
 import com.nyvoratech.composebase.core.network.AuthInterceptor
 import dagger.Module
 import dagger.Provides

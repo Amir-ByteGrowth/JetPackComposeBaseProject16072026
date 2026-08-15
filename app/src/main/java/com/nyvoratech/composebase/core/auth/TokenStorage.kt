@@ -1,4 +1,4 @@
-package com.nyvoratech.composebase.core.di.auth
+package com.nyvoratech.composebase.core.auth
 
 
 import kotlinx.coroutines.flow.Flow

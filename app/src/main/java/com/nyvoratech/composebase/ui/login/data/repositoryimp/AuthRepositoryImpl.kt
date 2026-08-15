@@ -3,7 +3,7 @@ package com.nyvoratech.composebase.ui.login.data.repositoryimp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.nyvoratech.composebase.core.common.FirebaseCrashReporter
-import com.nyvoratech.composebase.core.di.auth.TokenManager
+import com.nyvoratech.composebase.core.auth.TokenManager
 import com.nyvoratech.composebase.core.network.AppError
 import com.nyvoratech.composebase.core.network.Resource
 import com.nyvoratech.composebase.ui.login.domain.repository.AuthRepository

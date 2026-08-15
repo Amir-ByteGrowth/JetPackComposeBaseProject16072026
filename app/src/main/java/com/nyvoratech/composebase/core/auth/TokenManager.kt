@@ -1,4 +1,4 @@
-package com.nyvoratech.composebase.core.di.auth
+package com.nyvoratech.composebase.core.auth
 
 import javax.inject.Inject
 import javax.inject.Singleton

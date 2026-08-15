@@ -1,4 +1,4 @@
-package com.nyvoratech.composebase.core.di.auth
+package com.nyvoratech.composebase.core.auth
 
 import retrofit2.http.Body
 import retrofit2.http.POST

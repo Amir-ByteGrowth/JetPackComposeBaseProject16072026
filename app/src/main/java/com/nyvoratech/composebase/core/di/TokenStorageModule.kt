@@ -1,8 +1,8 @@
 package com.nyvoratech.composebase.core.di
 
 
-import com.nyvoratech.composebase.core.di.auth.DataStoreTokenStore
-import com.nyvoratech.composebase.core.di.auth.TokenStorage
+import com.nyvoratech.composebase.core.auth.DataStoreTokenStore
+import com.nyvoratech.composebase.core.auth.TokenStorage
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
